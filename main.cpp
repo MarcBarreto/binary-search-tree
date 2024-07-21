@@ -115,6 +115,30 @@ private:
             current = current->left;
         return current;
     }
+
+public:
+    // Constructor
+    BinarySearchTree() : root(nullptr) {}
+
+    // Public Method to Insert Value
+    void insert(int value) {
+        root = insert(root, value);
+    }
+
+    // Public Method To Show Tree
+    void print() {
+        print(root, 0);
+    }
+
+    // Method Public to Search Value in the Tree
+    bool search(int value) {
+        return search(root, value) != nullptr;
+    }
+
+    // Public Method to Delete Value
+    void deleteValue(int value) {
+        root = deleteNode(root, value);
+    }
 };
 
 int main() {
