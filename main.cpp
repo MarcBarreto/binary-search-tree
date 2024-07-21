@@ -62,6 +62,7 @@ private:
         print(node->left, space);
     }
 
+    // Private method to delete node
     Node* search(Node* node, int value) {
         // Checks if Node is null or Value was found
         if (!node || node->value == value) return node;
@@ -71,6 +72,48 @@ private:
             return search(node->left, value);
         else
             return search(node->right, value);
+    }
+
+    // Private method to delete node
+    Node* deleteNode(Node* node, int value) {
+        // Checks if Node is null
+        if (!node) return node;
+
+        // Checks if Value is greater or less than Node Value
+        if (value < node->value)
+            node->left = deleteNode(node->left, value);
+        else if (value > node->value)
+            node->right = deleteNode(node->right, value);
+        else {
+            // Search Node to delete
+            if (!node->left) {
+                Node* temp = node->right;
+                delete node;
+                return temp;
+            } else if (!node->right) {
+                Node* temp = node->left;
+                delete node;
+                return temp;
+            }
+
+            // Replace Node Value for less value to the right
+            Node* temp = minValueNode(node->right);
+            node->value = temp->value;
+
+            // Delete less Node to the right
+            node->right = deleteNode(node->right, temp->value);
+        }
+
+        return node;
+    }
+
+    // Private Method to Search Node to the left
+    Node* minValueNode(Node* node) {
+        Node* current = node;
+
+        while (current && current->left)
+            current = current->left;
+        return current;
     }
 };
 
