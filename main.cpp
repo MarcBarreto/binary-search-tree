@@ -29,10 +29,10 @@ private:
     // Private method to insert a value in the tree
     Node* insert(Node* node, int value) {
 
-        // Check if Node is null
+        // Checks if Node is null
         if (!node) return new Node(value);
 
-        // Check if Value is to insert in the left or right
+        // Checks if Value is to insert to the left or right
         if (value < node->value)
             node->left = insert(node->left, value);
         else
@@ -43,7 +43,7 @@ private:
 
     // Private method to show the tree 
     void print(Node* node, int space) {
-        // Check if node is null
+        // Checks if node is null
         if (!node) return;
 
         // Increases space for formatting
@@ -60,6 +60,17 @@ private:
 
         // Print Left Node
         print(node->left, space);
+    }
+
+    Node* search(Node* node, int value) {
+        // Checks if Node is null or Value was found
+        if (!node || node->value == value) return node;
+
+        // Checks if Value is to the right or left of the Node
+        if (value < node->value)
+            return search(node->left, value);
+        else
+            return search(node->right, value);
     }
 };
 
