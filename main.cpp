@@ -143,6 +143,72 @@ public:
 
 int main() {
 
+    // Instance Binary Search Tree Class
+    BinarySearchTree bst;
+
+    // Variable that control loop
+    bool running = true;
+
+    // Input Buffer
+    char input[999];
+
+    while (running) {
+
+        cout << "Select An Option Of The Menu (Type The Letter In Capital Letters)" << endl;
+        cout << "(L)oad, (P)rint, (D)elete, (S)earch, (E)xit" << endl;
+        cin >> input;
+
+        switch(input[0]) {
+            case 'L': {
+                cout << "(T)erminal, (F)ile" << endl;
+                cin >> input;
+                if (input[0] == 'T') {
+                    cout << "Enter numbers separated with space. Example: 1 2 3 4 5" << endl;
+                    cin.ignore();
+                    string line;
+                    getline(cin, line);
+                    istringstream iss(line);
+                    int num;
+                    while(iss >> num) bst.insert(num);
+                    cout << "Loaded Values!";
+                } else if (input[0] == 'F') {
+                    cout << "Enter name file" << endl;
+                    string filename;
+                    cin >> filename;
+                    ifstream file(filename);
+                    int num;
+                    while (file >> num) bst.insert(num);
+                    cout << "Loaded File!" << endl;
+                }
+                break;
+            }
+            case 'P':
+                bst.print();
+                break;
+            case 'D': {
+                cout << "Enter Value To Delete" << endl;
+                int delVal;
+                cin >> delVal;
+                bst.deleteValue(delVal);
+                break;
+            }
+            case 'S': {
+                cout << "Enter Value To Search:" << endl;
+                int searchVal;
+                cin >> searchVal;
+                bool found = bst.search(searchVal);
+                if (found)
+                    cout << "Value Found!" << endl;
+                else
+                    cout << "Value Not Found!" << endl;
+                break;
+            }
+            case 'E':
+                running = false;
+                break;
+        }
+    }
 
     return 0;
+
 }
